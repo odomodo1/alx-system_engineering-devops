@@ -22,7 +22,7 @@ defaults
 	log     global
 	mode    http
 	option  httplog
-	option  dontlognull
+	option  :dontlognull
 	timeout connect 5000
 	timeout client  50000
 	timeout server  50000
@@ -34,23 +34,23 @@ defaults
 	errorfile 503 /etc/haproxy/errors/503.http
  	errorfile 504 /etc/haproxy/errors/504.http
 
-frontend tfilehub-tech-frontend
+frontend odomodo-tech-frontend
 	bind *:80
 	mode http
         http-request set-header X_Forwarded-Proto http
-	default_backend tfilehub-tech-backend
+	default_backend odomodo-tech-backend
 
-frontend tfilehub-tech-frontend-https
-	bind *:443 ssl crt /etc/haproxy/certs/www.tfilehub.tech.pem
+frontend odomodo-tech-frontend-https
+	bind *:443 ssl crt /etc/haproxy/certs/www.odomodo.tech.pem
         http-request set-header X-Forwarded-Proto https
-	default_backend tfilehub-tech-backend-https
+	default_backend odomodo-tech-backend-https
 
-backend tfilehub-tech-backend
+backend odomodo-tech-backend
 	balance roundrobin
 	server 209440-web-01 100.25.17.136:80 check
 	server 209440-web-02 54.90.8.87:80 check
 
-backend tfilehub-tech-backend-https
+backend odomodo-tech-backend-https
 	balance roundrobin                                                 server 209440-web-01 100.25.17.136:80 check
         server 209440-web-02 54.90.8.87:80 check
 	http-request set-path /
